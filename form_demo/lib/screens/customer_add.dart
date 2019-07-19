@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:form_demo/mixins/validation_mixin.dart';
 
 class CustomerAdd extends StatefulWidget{
   @override
@@ -8,7 +9,7 @@ class CustomerAdd extends StatefulWidget{
 
 }
 
-class CustomerAddState extends State<CustomerAdd>{
+class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu classın içinde ValidationMixin fonksiyonlarını kullanabilmek için with
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -36,11 +37,7 @@ class CustomerAddState extends State<CustomerAdd>{
         labelText: "Name",
         hintText: "Boran"
       ),
-      validator: (String value){
-        if(value.length < 2)
-          return "Name length should be more than 2";
-        return null;
-      },
+      validator: validateFirstName,
     );
   }
 
@@ -50,6 +47,7 @@ class CustomerAddState extends State<CustomerAdd>{
           labelText: "Surname",
           hintText: "Pekel"
       ),
+      validator: validateLastName,
     );
   }
 
@@ -59,6 +57,7 @@ class CustomerAddState extends State<CustomerAdd>{
           labelText: "Email",
           hintText: "...@mail.com"
       ),
+      validator: validateEmail,
       keyboardType: TextInputType.emailAddress,
     );
   }
