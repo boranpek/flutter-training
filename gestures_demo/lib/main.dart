@@ -22,18 +22,46 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   int tabsCount = 0;
   int doubleTabsCount = 0;
   int longPressedCount = 0;
   double xPosition = 0.0;
   double yPosition = 0.0;
-  double boxSize = 150.0;
+  double boxSize = 0.0;
+  double fullBoxSize = 150.0;
+
+  AnimationController controller;
+  Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: const Duration(milliseconds: 10000),
+      vsync: this //ekran kaynaklarının gereksiz kullanılmasını onler
+    );
+    animation = CurvedAnimation(parent: controller, curve: Curves.bounceInOut);
+    animation.addListener((){
+      setState(() {
+        boxSize = fullBoxSize * animation.value;
+      });
+      centerBox(context);
+    });
+    controller.forward();
+  }
+
+ @override
+  void dispose() { //bellekten atar
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (xPosition == 0.0)
-      centerBox(context);
+    /*if (xPosition == 0.0)
+      centerBox(context);*/
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Gestures Demo"),
