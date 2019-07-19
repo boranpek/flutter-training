@@ -26,12 +26,14 @@ class _MyHomePageState extends State<MyHomePage> {
   int tabsCount = 0;
   int doubleTabsCount = 0;
   int longPressedCount = 0;
-  double xPosition = 40.0;
-  double yPosition = 60.0;
+  double xPosition = 0.0;
+  double yPosition = 0.0;
+  double boxSize = 150.0;
 
   @override
   Widget build(BuildContext context) {
-
+    if (xPosition == 0.0)
+      centerBox(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Gestures Demo"),
@@ -68,8 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
               left: xPosition,
               top: yPosition,
               child: Container(
-                width: 50.0,
-                height: 50.0,
+                width: boxSize,
+                height: boxSize,
                 decoration: BoxDecoration(
                     color: Colors.deepPurpleAccent
                 ),
@@ -86,6 +88,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void centerBox(BuildContext context){
+    xPosition = MediaQuery.of(context).size.width / 2.0 - boxSize / 2.0;
+    yPosition = MediaQuery.of(context).size.height / 2.0 - boxSize / 2.0 - 30.0;
+
+    setState(() {
+      this.xPosition = xPosition;
+      this.yPosition = yPosition;
+    });
   }
 
 }
