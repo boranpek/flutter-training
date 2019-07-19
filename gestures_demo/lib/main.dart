@@ -26,6 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int tabsCount = 0;
   int doubleTabsCount = 0;
   int longPressedCount = 0;
+  double xPosition = 40.0;
+  double yPosition = 60.0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
             longPressedCount++;
           });
         },
+        onVerticalDragUpdate: (DragUpdateDetails value){
+          setState(() {
+            yPosition += value.delta.dy;
+          });
+        },
+        onHorizontalDragUpdate: (DragUpdateDetails value){
+          setState(() {
+            xPosition += value.delta.dx;
+          });
+        },
         child: Stack(
           children: <Widget>[
             Positioned(
-              left: 40.0,
-              top: 60.0,
+              left: xPosition,
+              top: yPosition,
               child: Container(
                 width: 50.0,
                 height: 50.0,
