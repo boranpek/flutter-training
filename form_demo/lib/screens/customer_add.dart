@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:form_demo/mixins/validation_mixin.dart';
+import 'package:form_demo/models/customer.dart';
 
 class CustomerAdd extends StatefulWidget{
   @override
@@ -11,7 +12,7 @@ class CustomerAdd extends StatefulWidget{
 
 class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu classın içinde ValidationMixin fonksiyonlarını kullanabilmek için with
   final formKey = GlobalKey<FormState>();
-
+  final customer = Customer();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,6 +39,9 @@ class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu cl
         hintText: "Boran"
       ),
       validator: validateFirstName,
+      onSaved: (String value){
+        customer.firstName = value;
+      },
     );
   }
 
@@ -48,6 +52,9 @@ class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu cl
           hintText: "Pekel"
       ),
       validator: validateLastName,
+      onSaved: (String value){
+        customer.lastName = value;
+      },
     );
   }
 
@@ -59,6 +66,9 @@ class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu cl
       ),
       validator: validateEmail,
       keyboardType: TextInputType.emailAddress,
+      onSaved: (String value){
+        customer.email = value;
+      },
     );
   }
 
@@ -68,7 +78,10 @@ class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu cl
           labelText: "Password",
           hintText: "password"
       ),
-      obscureText: true
+      obscureText: true,
+      onSaved: (String value){
+        customer.password = value;
+      },
     );
   }
 
@@ -76,7 +89,9 @@ class CustomerAddState extends State<CustomerAdd> with ValidationMixin { //bu cl
     return RaisedButton(
       child: Text("Save"),
       onPressed: (){
-        formKey.currentState.validate();
+        if(formKey.currentState.validate()){
+          formKey.currentState.save();
+        }
       },
     );
   }
