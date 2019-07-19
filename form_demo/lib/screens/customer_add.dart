@@ -51,6 +51,7 @@ class CustomerAddState extends State<CustomerAdd>{
           labelText: "Email",
           hintText: "...@mail.com"
       ),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 
@@ -60,6 +61,7 @@ class CustomerAddState extends State<CustomerAdd>{
           labelText: "Password",
           hintText: "password"
       ),
+      obscureText: true
     );
   }
 
