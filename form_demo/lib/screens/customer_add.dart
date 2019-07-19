@@ -9,11 +9,14 @@ class CustomerAdd extends StatefulWidget{
 }
 
 class CustomerAddState extends State<CustomerAdd>{
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(25.0),
       child: Form(
+        key: formKey,
         child: Column(
           children: <Widget>[
             firstNameField(),
@@ -33,6 +36,11 @@ class CustomerAddState extends State<CustomerAdd>{
         labelText: "Name",
         hintText: "Boran"
       ),
+      validator: (String value){
+        if(value.length < 2)
+          return "Name length should be more than 2";
+        return null;
+      },
     );
   }
 
@@ -69,7 +77,7 @@ class CustomerAddState extends State<CustomerAdd>{
     return RaisedButton(
       child: Text("Save"),
       onPressed: (){
-
+        formKey.currentState.validate();
       },
     );
   }
