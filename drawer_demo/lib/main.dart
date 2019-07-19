@@ -1,3 +1,6 @@
+import 'package:drawer_demo/screens/customer_screen.dart';
+import 'package:drawer_demo/screens/home.dart';
+import 'package:drawer_demo/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,7 +14,11 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: Home()
+      home: Home(),
+      routes: <String,WidgetBuilder>{
+        CustomerScreen.routeName: (BuildContext context)=>new CustomerScreen(),
+        ProductScreen.routeName: (BuildContext context)=>new ProductScreen(),
+      },
     );
   }
 }
