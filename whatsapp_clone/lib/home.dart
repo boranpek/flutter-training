@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/screens/calls_screen.dart';
 import 'package:whatsapp_clone/screens/chat_screen.dart';
+import 'package:whatsapp_clone/screens/status_screen.dart';
 
 class Home extends StatefulWidget{
   @override
@@ -41,8 +43,8 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin{
         children: <Widget>[
           Text("Camera"),
           ChatScreen(),
-          Text("Status"),
-          Text("Calls")
+          StatusScreen(),
+          CallsScreen()
         ],
       ),
       floatingActionButton: FloatingActionButton(
