@@ -13,10 +13,41 @@ class SharedScreenState extends State<SharedScreen> {
   final lastNameController = TextEditingController();
   final generalController = GlobalKey<FormState>();
 
+  String name = "";
+  String lastName = "";
+  bool status = false;
+  int registerNumber = 0;
+
   void dispose(){
     nameController.dispose();
     lastNameController.dispose();
     super.dispose();
+  }
+
+  void register(String name, String lastName) async {
+    final registerTool = await SharedPreferences.getInstance();
+
+    if(generalController.currentState.validate()){
+      registerTool.setBool("status", true);
+      registerTool.setInt("registerNumber", 1);
+      registerTool.setString("name", name);
+      registerTool.setString("lastName", lastName);
+
+      Fluttertoast.showToast(
+        msg: "Success!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+
+      );
+    }
+  }
+
+  void showRegister(){
+
+  }
+
+  void delete(){
+
   }
 
   @override
@@ -47,7 +78,7 @@ class SharedScreenState extends State<SharedScreen> {
               TextFormField(
                 validator: (value){
                   if(value.length < 3)
-                    return "Last n ame length must be more than 3!";
+                    return "Last name length must be more than 3!";
                   return null;
                 },
                 controller: lastNameController,
@@ -65,7 +96,7 @@ class SharedScreenState extends State<SharedScreen> {
                         color: Colors.green,
                         child: Text("Register", style: TextStyle(color: Colors.white),),
                         onPressed: (){
-
+                          register(nameController.text, lastNameController.text);
                         },
                       ),
                     ),
@@ -95,6 +126,20 @@ class SharedScreenState extends State<SharedScreen> {
                     ),
                   )
                 ],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Name"),
+                      Text("Last Name"),
+                      Text("Status"),
+                      Text("Register number"),
+                    ],
+                  ),
+                ),
               )
             ],
           ),
@@ -102,4 +147,5 @@ class SharedScreenState extends State<SharedScreen> {
       ),
     );
   }
+
 }
