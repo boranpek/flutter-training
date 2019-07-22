@@ -42,6 +42,10 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
               _buildDivider(screenSize),
               SizedBox(height: 12.0,),
               _buildFurtherInfo(),
+              SizedBox(height: 12.0,),
+              _buildDivider(screenSize),
+              SizedBox(height: 12.0,),
+              _buildSizeArea(),
             ],
           ),
         )
@@ -126,9 +130,33 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
       padding: EdgeInsets.symmetric(horizontal: 12.0),
       child: Row(
         children: <Widget>[
-          Icon(Icons.local_offer),
+          Icon(Icons.local_offer, color: Colors.grey,),
           SizedBox(width: 12.0,),
           Text("Click for more information", style: TextStyle(color: Colors.grey),)
+        ],
+      ),
+    );
+  }
+
+  _buildSizeArea() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(Icons.straighten, color: Colors.grey,),
+              SizedBox(width: 12.0,),
+              Text("Size: M", style: TextStyle(color: Colors.grey),)
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Text("Beden Tablosu", style: TextStyle(fontSize: 12.0,color: Colors.blue)),
+            ],
+          )
         ],
       ),
     );
