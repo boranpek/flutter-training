@@ -46,6 +46,9 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
               _buildDivider(screenSize),
               SizedBox(height: 12.0,),
               _buildSizeArea(),
+              SizedBox(height: 12.0,),
+              _buildInfo(),
+
             ],
           ),
         )
@@ -156,6 +159,38 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
             children: <Widget>[
               Text("Beden Tablosu", style: TextStyle(fontSize: 12.0,color: Colors.blue)),
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildInfo() {
+    TabController tabController = TabController(length: 2, vsync: this);
+    return Container(
+      child: Column(
+        children: <Widget>[
+          TabBar(
+            controller: tabController,
+            tabs: <Widget>[
+              Tab(
+                child: Text("Product Detail", style: TextStyle(color: Colors.black),),
+              ),
+              Tab(
+                child: Text("Washing Detail", style: TextStyle(color: Colors.black),),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+            height: 40.0,
+            child: TabBarView(
+              controller: tabController,
+              children: <Widget>[
+                Text("60% Coton, 30% Polyester", style: TextStyle(color: Colors.black),),
+                Text("max 30 celcius degree", style: TextStyle(color: Colors.black),)
+              ],
+            ),
           )
         ],
       ),
