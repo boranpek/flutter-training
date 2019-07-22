@@ -26,6 +26,7 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
   }
 
   _buildProductDetails(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return ListView(
       children: <Widget>[
         Container(
@@ -36,7 +37,11 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
               _buildProductImages(),
               _buildProductTitle(),
               SizedBox(height: 12.0,),
-              _buildProductPrice()
+              _buildProductPrice(),
+              SizedBox(height: 12.0,),
+              _buildDivider(screenSize),
+              SizedBox(height: 12.0,),
+              _buildFurtherInfo(),
             ],
           ),
         )
@@ -99,6 +104,31 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
           SizedBox(width: 8.0,),
           Text("50\% discount", style: TextStyle(fontSize: 12.0, color: Colors.blue)),
 
+        ],
+      ),
+    );
+  }
+
+  _buildDivider(Size screenSize) {
+    return Column(
+      children: <Widget>[
+        Container(
+          color: Colors.grey,
+          width: screenSize.width,
+          height: 0.25,
+        )
+      ],
+    );
+  }
+
+  _buildFurtherInfo() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.local_offer),
+          SizedBox(width: 12.0,),
+          Text("Click for more information", style: TextStyle(color: Colors.grey),)
         ],
       ),
     );
