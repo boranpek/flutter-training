@@ -10,16 +10,26 @@ class ToastMessages extends StatelessWidget {
         title: Text("Toast Message"),
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: (){
+        child: GestureDetector(
+          onTap: (){
             Fluttertoast.showToast(
-              msg: "Clicked button",
+              msg: "Clicked",
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               backgroundColor: Colors.greenAccent,
               textColor: Colors.white
             );
           },
+          child: Container(
+            width: 250.0,
+            height: 250.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text("Click Me",
+                style: TextStyle(fontSize: 25,color: Colors.red),
+            ),
+            ),
+          ),
         ),
       ),
     );
