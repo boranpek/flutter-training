@@ -65,8 +65,21 @@ class SharedScreenState extends State<SharedScreen> {
     );
   }
 
-  void delete(){
+  void delete() async {
+    final registerTool = await SharedPreferences.getInstance();
 
+    registerTool.remove("status");
+    registerTool.remove("registerNumber");
+    registerTool.remove("name");
+    registerTool.remove("lastName");
+    //registerTool.clear(); delete all registers
+
+    Fluttertoast.showToast(
+      msg: "Success!",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+
+    );
   }
 
   @override
@@ -139,7 +152,7 @@ class SharedScreenState extends State<SharedScreen> {
                         color: Colors.red,
                         child: Text("Delete", style: TextStyle(color: Colors.white),),
                         onPressed: (){
-
+                          delete();
                         },
                       ),
                     ),
