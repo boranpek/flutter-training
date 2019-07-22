@@ -26,7 +26,9 @@ class ProductList extends StatelessWidget {
           }
 
           else if (index == 4) {
-            return Text("Last");
+            return SizedBox(
+              height: 12.0,
+            );
           }
 
           else {
@@ -64,6 +66,9 @@ class ProductList extends StatelessWidget {
 
   _buildFilterButton(String title) {
     return InkWell(
+      onTap: (){
+        print(title);
+      },
       child: Row(
         children: <Widget>[
           Icon(Icons.arrow_drop_down, color: Colors.black,),
