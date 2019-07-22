@@ -42,8 +42,27 @@ class SharedScreenState extends State<SharedScreen> {
     }
   }
 
-  void showRegister(){
+  void showRegister() async {
+    final registerTool = await SharedPreferences.getInstance();
 
+    bool status = registerTool.getBool("status");
+    int registerNumber = registerTool.getInt("registerNumber");
+    String name = registerTool.getString("name");
+    String lastName= registerTool.getString("lastName");
+
+    setState(() {
+      this.name = name;
+      this.lastName = lastName;
+      this.registerNumber = registerNumber;
+      this.status = status;
+    });
+
+    Fluttertoast.showToast(
+      msg: "Success!",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+
+    );
   }
 
   void delete(){
@@ -106,9 +125,9 @@ class SharedScreenState extends State<SharedScreen> {
                       padding: EdgeInsets.all(10.0),
                       child: RaisedButton(
                         color: Colors.blue,
-                        child: Text("Register", style: TextStyle(color: Colors.white),),
+                        child: Text("Registered", style: TextStyle(color: Colors.white),),
                         onPressed: (){
-
+                          showRegister();
                         },
                       ),
                     ),
@@ -118,7 +137,7 @@ class SharedScreenState extends State<SharedScreen> {
                       padding: EdgeInsets.all(10.0),
                       child: RaisedButton(
                         color: Colors.red,
-                        child: Text("Registered", style: TextStyle(color: Colors.white),),
+                        child: Text("Delete", style: TextStyle(color: Colors.white),),
                         onPressed: (){
 
                         },
@@ -133,10 +152,10 @@ class SharedScreenState extends State<SharedScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Name"),
-                      Text("Last Name"),
-                      Text("Status"),
-                      Text("Register number"),
+                      Text("Name: $name"),
+                      Text("Last Name: $lastName"),
+                      Text("Status: $status"),
+                      Text("Register number: $registerNumber"),
                     ],
                   ),
                 ),
