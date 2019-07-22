@@ -1,3 +1,4 @@
+import 'package:ecommerce/widgets/productListRow.dart';
 import 'package:flutter/material.dart';
 
 class ProductList extends StatelessWidget {
@@ -29,7 +30,7 @@ class ProductList extends StatelessWidget {
           }
 
           else {
-            return Text("Products");
+            return _buildProductListRow();
           }
 
         },
@@ -71,6 +72,10 @@ class ProductList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _buildProductListRow() {
+    return ProductListRow(name: "Kazak",currentPrice: 150, originalPrice: 300, discount: 50, imageUrl:"https://img-cacharel.mncdn.com/UPLOAD/PRODUCT_NEW/2178x2904/05/1/0TK/thumb/50205518-VR027-erkek-triko-kazak-1_large.jpg");
   }
 }
 
