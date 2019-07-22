@@ -34,6 +34,9 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildProductImages(),
+              _buildProductTitle(),
+              SizedBox(height: 12.0,),
+              _buildProductPrice()
             ],
           ),
         )
@@ -72,6 +75,31 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  _buildProductTitle() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      child: Center(
+        child: Text("Kazak", style: TextStyle(fontSize: 16.0, color: Colors.black),),
+      ),
+    );
+  }
+
+  _buildProductPrice() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      child: Row(
+        children: <Widget>[
+          Text("\$ 100", style: TextStyle(fontSize: 16.0, color: Colors.black)),
+          SizedBox(width: 8.0,),
+          Text("\$ 200", style: TextStyle(fontSize: 12.0, color: Colors.grey, decoration: TextDecoration.lineThrough),),
+          SizedBox(width: 8.0,),
+          Text("50\% discount", style: TextStyle(fontSize: 12.0, color: Colors.blue)),
+
+        ],
       ),
     );
   }
