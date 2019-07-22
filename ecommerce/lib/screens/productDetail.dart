@@ -71,7 +71,7 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
                 TabBarView(
                   controller: imagesController,
                   children: <Widget>[
-                    Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO_IxBFyIR8uWRSzf2bRwGKcngr2ykYWa9t7c5MWcn5QlzPPB_"),
+                    Image.asset("assets/images/kazak.jpeg"),
                     Image.network("https://www.manche.com.tr/images_buyuk/f9/Manche-Vizon-Erkek-Kazak-Balikci_11109_1.jpg"),
                     Image.network("https://www.heptarz.com/i/l/000/0003051_233-sunteks-erkek-gri-balikci-yaka-kazak.jpeg"),
                   ],
@@ -134,7 +134,7 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
       padding: EdgeInsets.symmetric(horizontal: 12.0),
       child: Row(
         children: <Widget>[
-          Icon(Icons.local_offer, color: Colors.grey,),
+          Icon(Icons.local_offer, color: Colors.grey),
           SizedBox(width: 12.0,),
           Text("Click for more information", style: TextStyle(color: Colors.grey),)
         ],
@@ -158,7 +158,7 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
           ),
           Row(
             children: <Widget>[
-              Text("Beden Tablosu", style: TextStyle(fontSize: 12.0,color: Colors.blue)),
+              Text("Size Table", style: TextStyle(fontSize: 12.0,color: Colors.blue)),
             ],
           )
         ],
