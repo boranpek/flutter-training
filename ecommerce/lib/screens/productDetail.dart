@@ -22,6 +22,7 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
         title: Text("Product Detail",style: TextStyle(color: Colors.black),),
       ),
       body: _buildProductDetails(context),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );;
   }
 
@@ -192,6 +193,54 @@ class ProductDetailState extends State<ProductDetail> with TickerProviderStateMi
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  _buildBottomNavigationBar() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 50.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 1,
+            child: RaisedButton(
+              onPressed: (){
+
+              },
+              color: Colors.grey,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.list,color: Colors.white,),
+                  SizedBox(width: 4.0,),
+                  Text("Wish", style: TextStyle(color: Colors.white),)
+                ],
+              ),
+            ),
+          ),
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 2,
+            child: RaisedButton(
+              onPressed: (){
+
+              },
+              color: Colors.greenAccent,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.card_travel,color: Colors.white,),
+                  SizedBox(width: 4.0,),
+                  Text("Add Cart", style: TextStyle(color: Colors.white),)
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
