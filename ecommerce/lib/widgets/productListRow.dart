@@ -17,6 +17,7 @@ class ProductListRow extends StatelessWidget{
       children: <Widget>[
         _buildProductItemCard(context),
         _buildProductItemCard(context)
+
       ],
     );
   }
@@ -51,7 +52,7 @@ class ProductListRow extends StatelessWidget{
                             color: Colors.black
                         ),
                       ),
-                      SizedBox(width: 8.0),
+                      SizedBox(width: 4.0),
                       Text(
                         "\$$originalPrice",
                         style: TextStyle(
@@ -60,14 +61,13 @@ class ProductListRow extends StatelessWidget{
                             decoration: TextDecoration.lineThrough
                         ),
                       ),
-                      SizedBox(width: 8.0), Text(
+                      SizedBox(width: 4.0), Text(
                         "$discount\% discount",
                         style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.grey,
                         ),
                       ),
-                      SizedBox(width: 8.0)
                     ],
                   )
                 ],
