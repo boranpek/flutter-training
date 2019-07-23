@@ -39,6 +39,10 @@ flutter:
   assets:
     - assets/images/kazak.jpeg
     - assets/images/giphy.gif
+  fonts:
+    - family: Fascinate-Regular
+      fonts:
+        - asset: assets/fonts/Fascinate-Regular.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

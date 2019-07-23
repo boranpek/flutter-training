@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'E-Commerce',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: "Fascinate-Regular"
       ),
       home: ProductList(),
       routes: Routes.routes,
+
     );
   }
 }
