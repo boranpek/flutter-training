@@ -1,0 +1,43 @@
+[
+  {
+    "studentId" : 1919,
+    "name" : "Boran",
+    "lastName" : "Pekel",
+    "gender" : "Man",
+    "successStatus" : true,
+    "parent" : {
+      "name" : "Nalan",
+      "lastName" : "Bahar",
+      "relation" : "Mother",
+      "telNo" : 1234
+    }
+  },
+
+  {
+    "studentId" : 1923,
+    "name" : "Berk",
+    "lastName" : "Kızmaz",
+    "gender" : "Man",
+    "successStatus" : true,
+    "parent" : {
+      "name" : "Melek",
+      "lastName" : "Kızmaz",
+      "relation" : "Mother",
+      "telNo" : 1235
+    }
+  },
+
+  {
+    "studentId" : 1920,
+    "name" : "Zeynep",
+    "lastName" : "Akıncı",
+    "gender" : "Woman",
+    "successStatus" : true,
+    "parent" : {
+      "name" : "Hale",
+      "lastName" : "Akıncı",
+      "relation" : "Mother",
+      "telNo" : 1236
+    }
+  }
+]
