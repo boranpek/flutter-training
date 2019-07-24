@@ -48,7 +48,7 @@ class UserScreenState extends State<UserScreen> {
                 backgroundColor: Colors.green,
                 child: Text(users[position].getName[0] + users[position].getLastName[0]),
               ),
-              title: Text(this.users[position].getName),
+              title: Text(this.users[position].getUserName),
               subtitle: Text(this.users[position].getTitle),
               onTap: (){
 

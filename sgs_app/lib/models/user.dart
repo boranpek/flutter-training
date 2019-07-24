@@ -5,10 +5,11 @@ class User {
   String _password;
   String _userName;
   String _title;
+  String _email;
 
 
-  User(this._firstName, this._lastName,this._userName, this._password,this._title);
-  User.withId(this._id,this._firstName,this._lastName,this._userName, this._password);
+  User(this._firstName, this._lastName,this._userName, this._password,this._title,this._email);
+  User.withId(this._id,this._firstName,this._lastName,this._userName, this._password,this._title,this._email);
 
   int get id => _id;
   String get getName => _firstName;
@@ -48,6 +49,7 @@ class User {
     map["userName"] = _userName;
     map["password"] = _password;
     map["title"] = _title;
+    map["email"] = _email;
     if(id != null)
       map["id"] = id;
     return map;

@@ -16,6 +16,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
   TextEditingController txtUserName = new TextEditingController();
   TextEditingController txtPassword = new TextEditingController();
   TextEditingController txtTitle = new TextEditingController();
+  TextEditingController txtEmail = new TextEditingController();
 
   DbHelper dbHelper = new DbHelper();
   final formKey = GlobalKey<FormState>();
@@ -49,6 +50,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
                     lastNameField(),
                     userNameField(),
                     passwordField(),
+                    emailField(),
                     titleField(),
                     submitButton()
                   ],
@@ -119,7 +121,17 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
           hintText: "title"
       ),
       controller: txtTitle,
+    );
+  }
 
+  Widget emailField() {
+    return TextFormField(
+      decoration: InputDecoration(
+          labelText: "Email",
+          hintText: "email@sgs.com"
+      ),
+      controller: txtEmail,
+      validator: validateEmail,
     );
   }
 
@@ -137,7 +149,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
   }
 
   void addToDatabase() async {
-    int result = await dbHelper.insert(User(txtName.text,txtLastName.text,txtUserName.text,txtPassword.text,txtTitle.text));
+    int result = await dbHelper.insert(User(txtName.text,txtLastName.text,txtUserName.text,txtPassword.text,txtTitle.text,txtEmail.text));
     if(result != 0)
       Navigator.pop(context,true);
   }

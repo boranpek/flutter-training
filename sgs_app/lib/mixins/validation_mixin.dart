@@ -10,7 +10,7 @@ class ValidationMixin{
     return null;
   }
   String validateEmail(String value){
-    if(!value.contains("@"))
+    if(!value.contains("@sgs.com"))
       return "Mail must include '@'!";
     return null;
   }
