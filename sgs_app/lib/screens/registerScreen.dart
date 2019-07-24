@@ -26,17 +26,18 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
         backgroundColor: Colors.black45,
         title: Text("Sgs"),
       ),
-      body:Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/sgsImg.png"),
-            fit: BoxFit.fill,
-          ),
-        ),
-        child: Column(
+      body: Column(
           children: <Widget>[
             SizedBox(
-              height: 200.0,
+              height: 300.0,
+              child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/sgsImg.png"),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+              ),
             ),
             Container(
               margin: EdgeInsets.all(25.0),
@@ -55,7 +56,6 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
               ),
             )
           ],
-        ),
       ),
       backgroundColor: Colors.orangeAccent,
     );
@@ -82,7 +82,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
   Widget userNameField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: "User Name",
+          labelText: "UserName",
           hintText: "username"
       ),
       validator: validateUserName,
