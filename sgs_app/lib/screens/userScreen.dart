@@ -1,5 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/models/user.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -8,6 +11,7 @@ class UserScreen extends StatefulWidget {
 }
 
 class UserScreenState extends State<UserScreen> {
+  DbHelper dbHelper = new DbHelper();
   List<User> users;
   int count = 0;
   @override
@@ -18,21 +22,26 @@ class UserScreenState extends State<UserScreen> {
         title: Text("Sgs"),
       ),
       backgroundColor: Colors.orangeAccent,
-      body:Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/sgsImg.png"),
-            fit: BoxFit.fill,
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(25.0),
-              child: userListItems(),
-            )
-          ],
-        ),
+      body:FirebaseAnimatedList(
+        query: dbHelper.getUsers(),
+        itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
+          User user = User.fromDataSnapshot(snapshot);
+          return Card(
+            color: Colors.amberAccent,
+            elevation: 2,
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.black54,
+                child: Text(user.getName[0] + user.getLastName[0]),
+              ),
+              title: Text(user.getUserName),
+              subtitle: Text(user.getTitle),
+              onTap: (){
+
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -57,6 +66,12 @@ class UserScreenState extends State<UserScreen> {
           );
         }
     );
+  }
+
+  void initState() {
+    super.initState();
+    dbHelper = new DbHelper();
+    dbHelper.initializeDb();
   }
 
   void getData(){

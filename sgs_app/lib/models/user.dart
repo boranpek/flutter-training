@@ -1,5 +1,7 @@
+import 'package:firebase_database/firebase_database.dart';
+
 class User {
-  int _id;
+  String _id;
   String _firstName;
   String _lastName;
   String _password;
@@ -11,7 +13,7 @@ class User {
   User(this._firstName, this._lastName,this._userName, this._password,this._title,this._email);
   User.withId(this._id,this._firstName,this._lastName,this._userName, this._password,this._title,this._email);
 
-  int get id => _id;
+  String get id => _id;
   String get getName => _firstName;
   String get getLastName => _lastName;
   String get getUserName => _userName;
@@ -44,7 +46,7 @@ class User {
 
   Map<String,dynamic> toMap() {
     var map = Map<String,dynamic>();
-    map["name"] = _firstName;
+    map["firstName"] = _firstName;
     map["lastName"] = _lastName;
     map["userName"] = _userName;
     map["password"] = _password;
@@ -53,6 +55,16 @@ class User {
     if(id != null)
       map["id"] = id;
     return map;
+  }
+
+  User.fromDataSnapshot(DataSnapshot input) {
+    _id = input.key;
+    _firstName = input.value["firstName"];
+    _lastName = input.value["lastName"];
+    _userName = input.value["userName"];
+    _password = input.value["password"];
+    _title = input.value["title"];
+    _email = input.value["email"];
   }
 
 }

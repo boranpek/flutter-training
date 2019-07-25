@@ -39,7 +39,7 @@ class DbHelper {
     return result;
   }
 
-  getProducts(){
-
+  getUsers(){
+    return _dbReference;
   }
 }

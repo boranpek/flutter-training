@@ -30,7 +30,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
       body: Column(
           children: <Widget>[
             SizedBox(
-              height: 300.0,
+              height: 200.0,
               child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -68,7 +68,6 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
     dbHelper = new DbHelper();
     dbHelper.initializeDb();
   }
-
 
   Widget firstNameField() {
     return TextFormField(

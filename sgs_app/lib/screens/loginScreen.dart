@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin{
+  DbHelper dbHelper = new DbHelper();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,13 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
     );
   }
 
+  void initState() {
+    super.initState();
+    dbHelper = new DbHelper();
+    dbHelper.initializeDb();
+  }
+
+
   Widget userNameField() {
     return TextFormField(
       decoration: InputDecoration(
@@ -94,7 +102,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
       onPressed: (){
         if(formKey.currentState.validate()){
           formKey.currentState.save();
-          //Buraya navigator gelcek
+          Navigator.of(context).pushNamed(Constants.ROUTE_USER_SCREEN);
         }
       },
     );
