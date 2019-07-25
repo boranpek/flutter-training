@@ -7,11 +7,17 @@ PODS:
   - Firebase/Database (6.4.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 6.0.0)
+  - Firebase/Storage (6.4.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.3.0)
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
   - firebase_database (0.0.1):
     - Firebase/Database
+    - Flutter
+  - firebase_storage (0.0.1):
+    - Firebase/Storage
     - Flutter
   - FirebaseAnalytics (6.0.3):
     - FirebaseCore (~> 6.0)
@@ -34,6 +40,10 @@ PODS:
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseStorage (3.3.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
@@ -61,6 +71,9 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.2.3):
     - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.2.2)
+  - image_picker (0.0.1):
+    - Flutter
   - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -71,8 +84,10 @@ PODS:
 DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -82,8 +97,10 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
+    - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleUtilities
+    - GTMSessionFetcher
     - leveldb-library
     - nanopb
 
@@ -92,24 +109,32 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_database:
     :path: ".symlinks/plugins/firebase_database/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
 
 SPEC CHECKSUMS:
   Firebase: 9445469655a98e9010737f4bc4720e5bda465873
   firebase_core: b3b02d0b5e9d01aab5e50ba7cbcf84c73cb6883c
   firebase_database: 74cceb9604f7fb691d8bd9573daa62efab785619
+  firebase_storage: 52033ea2e6ad58bfa852de92002598850d325c36
   FirebaseAnalytics: 69fe25866d2ec87c6f02d72c3c9a82bce9c065a0
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 7ea99e200f0024262650be56623fbe6a7bef1707
   FirebaseDatabase: f48e067716864be2b855cf716b927ef375d6cfa0
   FirebaseInstanceID: 9782fcfb89e4d7da76cc28eac4b8543dc7be4a4b
+  FirebaseStorage: fdf753138620fbb9257679357daec4f266627c37
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   GoogleAppMeasurement: 1e45fa601e6280c180880d57010390f6679cd971
   GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 

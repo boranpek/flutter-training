@@ -69,7 +69,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
   void initState() {
     super.initState();
     dbHelper = new DbHelper();
-    dbHelper.initializeDb();
+    dbHelper.initializeUserDb();
   }
 
   Widget firstNameField() {

@@ -71,7 +71,7 @@ class UserScreenState extends State<UserScreen> {
   void initState() {
     super.initState();
     dbHelper = new DbHelper();
-    dbHelper.initializeDb();
+    dbHelper.initializeUserDb();
   }
 
   void getData(){

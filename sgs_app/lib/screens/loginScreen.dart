@@ -13,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin{
+  TextEditingController txtUserName = new TextEditingController();
   DbHelper dbHelper = new DbHelper();
   final formKey = GlobalKey<FormState>();
   @override
@@ -57,14 +58,13 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
           )
         ],
       ),
-
     );
   }
 
   void initState() {
     super.initState();
     dbHelper = new DbHelper();
-    dbHelper.initializeDb();
+    dbHelper.initializeUserDb();
   }
 
 
@@ -75,6 +75,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
           hintText: "username"
       ),
       validator: validateFirstName,
+      controller: txtUserName,
       onSaved: (String value){
 
       },
@@ -117,7 +118,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
     );
   }
 
-  void saveCustomer(User user) {
+  void saveUser(User user) {
     print(user.getName);
   }
 

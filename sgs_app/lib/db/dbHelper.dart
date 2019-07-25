@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:sgs_app/models/url.dart';
 import 'package:sgs_app/models/user.dart';
 
 class DbHelper {
@@ -23,12 +24,12 @@ class DbHelper {
 
   Future<FirebaseDatabase> get db async {
     if(_db == null){
-      _db = await initializeDb();
+      _db = await initializeUserDb();
     }
     return _db;
   }
 
-  initializeDb() async {
+  initializeUserDb() async {
     _dbReference = _db.reference().child("Users");
     return _dbReference;
   }
@@ -40,6 +41,20 @@ class DbHelper {
   }
 
   getUsers(){
+    return _dbReference;
+  }
+
+  initializeUrlDb() async {
+    _dbReference = _db.reference().child("Url");
+    return _dbReference;
+  }
+
+  addUrl(Url url) async {
+    var result = await _dbReference.push().set(url.toMap());
+    return result;
+  }
+
+  getUrl(){
     return _dbReference;
   }
 }

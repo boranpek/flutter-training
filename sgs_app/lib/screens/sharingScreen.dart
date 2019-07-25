@@ -1,5 +1,14 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:sgs_app/db/dbHelper.dart';
+import 'package:sgs_app/models/url.dart';
 import 'package:sgs_app/utilities/constants/constants.dart';
+import 'package:path/path.dart';
 
 class SharingScreen extends StatefulWidget {
   @override
@@ -8,12 +17,35 @@ class SharingScreen extends StatefulWidget {
 }
 
 class SharingScreenState extends State<SharingScreen> {
+  File _image;
+  DbHelper dbHelper;
+  Future getImage(BuildContext context) async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+      uploadToFirebase(context);
+    });
+
+  }
+
+  Future uploadToFirebase(BuildContext context) async {
+    String fileName = basename(_image.path);
+    StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+    var downUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    var url = downUrl;
+    await dbHelper.addUrl(Url(url));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-
+          getImage(context);
         },
         tooltip: "Share" ,
         child: Icon(Icons.add),
@@ -50,13 +82,38 @@ class SharingScreenState extends State<SharingScreen> {
           )
         ],
       ),
-      body:Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(25.0),
+      body:FirebaseAnimatedList(
+        query: dbHelper.getUrl(),
+        itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
+          Url url = Url.fromDataSnapshot(snapshot);
+          return Card(
+            color: Colors.amberAccent,
+            elevation: 2,
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.black54,
+                    child: Icon(Icons.account_circle),
+                  ),
+                  title: Text("boranpek"),
+                  subtitle: Text("intern"),
+                  onTap: (){
+
+                  },
+                ),
+                Image.network(url.getUrl)
+              ],
             )
-          ],
-        ),
+          );
+        },
+      ),
     );
+  }
+
+  void initState() {
+    super.initState();
+    dbHelper = new DbHelper();
+    dbHelper.initializeUrlDb();
   }
 }
