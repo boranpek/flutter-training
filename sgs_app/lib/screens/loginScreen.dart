@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/mixins/validation_mixin.dart';
 import 'package:sgs_app/models/user.dart';
-import 'package:sgs_app/screens/registerScreen.dart';
-import 'dart:async';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:sgs_app/utilities/constants/constants.dart';
 
@@ -20,10 +19,10 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.black54,
         title: Text("Sgs"),
       ),
-      backgroundColor: Colors.orangeAccent,
+      backgroundColor: Colors.white,
       body:Column(
         children: <Widget>[
           SizedBox(
@@ -97,12 +96,12 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
 
   Widget loginButton() {
     return RaisedButton(
-      child: Text("Sign in", style: TextStyle(fontSize: 15.0, color: Colors.deepOrangeAccent),),
+      child: Text("Sign in", style: TextStyle(fontSize: 15.0, color: Colors.white),),
       color: Colors.black45,
       onPressed: (){
         if(formKey.currentState.validate()){
           formKey.currentState.save();
-          Navigator.of(context).pushNamed(Constants.ROUTE_USER_SCREEN);
+          Navigator.of(context).pushNamed(Constants.ROUTE_SHARING_SCREEN);
         }
       },
     );
@@ -110,7 +109,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
 
   Widget registerButton() {
     return RaisedButton(
-      child: Text("Register", style: TextStyle(fontSize: 15.0, color: Colors.deepOrangeAccent),),
+      child: Text("Register", style: TextStyle(fontSize: 15.0, color: Colors.white),),
       color: Colors.black45,
       onPressed: (){
         Navigator.of(context).pushNamed(Constants.ROUTE_REGISTER_SCREEN);

@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/mixins/validation_mixin.dart';
 import 'package:sgs_app/models/user.dart';
@@ -59,7 +62,7 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
             )
           ],
       ),
-      backgroundColor: Colors.orangeAccent,
+      backgroundColor: Colors.white,
     );
   }
 
@@ -136,11 +139,19 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
 
   Widget submitButton() {
     return RaisedButton(
-      child: Text("Submit", style: TextStyle(fontSize: 20.0, color: Colors.deepOrangeAccent),),
+      child: Text("Submit", style: TextStyle(fontSize: 20.0, color: Colors.white),),
       color: Colors.black45,
       onPressed: (){
         if(formKey.currentState.validate()){
           formKey.currentState.save();
+          Fluttertoast.showToast(
+              msg: "Success!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              textColor: Colors.white
+          );
+          sleep(const Duration(seconds:2));
           addToDatabase();
         }
       },
