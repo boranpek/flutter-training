@@ -66,9 +66,8 @@ class SharingScreenState extends State<SharingScreen> {
                     leading: Icon(Icons.exit_to_app),
                     title: Text("Sign Out"),
                     onTap: (){
-                      setState(() {
                         Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN_SCREEN);
-                      });
+                      
                     }
                   ),
                 ),
@@ -113,7 +112,12 @@ class SharingScreenState extends State<SharingScreen> {
       ),
     );
   }
-
+ @override
+  void setState(fn) {
+    super.setState(fn);
+    dbHelper = new DbHelper();
+    dbHelper.initializeUrlDb();
+  }
   void initState() {
     super.initState();
     dbHelper = new DbHelper();

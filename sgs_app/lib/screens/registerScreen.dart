@@ -165,7 +165,9 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
   void addToDatabase() async {
     int result = await dbHelper.insert(User(txtName.text,txtLastName.text,txtUserName.text,txtPassword.text,txtTitle.text,txtEmail.text));
     if(result != 0)
-      Navigator.pop(context,true);
+        Navigator.pop(context,true);
+
+
   }
 
 
