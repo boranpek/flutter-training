@@ -30,37 +30,41 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
         backgroundColor: Colors.black45,
         title: Text("Sgs"),
       ),
-      body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 200.0,
-              child: Container(
+      body: ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              SizedBox(
+                height: 200.0,
+                child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/sgsImg.png"),
                       fit: BoxFit.fill,
                     ),
                   ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(25.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: <Widget>[
-                    firstNameField(),
-                    lastNameField(),
-                    userNameField(),
-                    passwordField(),
-                    emailField(),
-                    titleField(),
-                    submitButton()
-                  ],
                 ),
               ),
-            )
-          ],
+              Container(
+                margin: EdgeInsets.all(25.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: <Widget>[
+                      firstNameField(),
+                      lastNameField(),
+                      userNameField(),
+                      passwordField(),
+                      emailField(),
+                      titleField(),
+                      submitButton()
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
     );

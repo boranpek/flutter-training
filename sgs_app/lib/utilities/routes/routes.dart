@@ -10,6 +10,6 @@ class Routes {
     Constants.ROUTE_REGISTER_SCREEN: (BuildContext context) => RegisterScreen(),
     Constants.ROUTE_LOGIN_SCREEN: (BuildContext context) => LoginScreen(),
     Constants.ROUTE_USER_SCREEN: (BuildContext context) => UserScreen(),
-    Constants.ROUTE_SHARING_SCREEN: (BuildContext context) => SharingScreen()
+    //Constants.ROUTE_SHARING_SCREEN: (BuildContext context) => SharingScreen()
   };
 }
