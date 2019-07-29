@@ -73,7 +73,7 @@ class DbHelper {
     return result;
   }
 
-  getFriend(){
+  getFriends(){
     return _dbReference;
 }
 }

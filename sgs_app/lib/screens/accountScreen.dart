@@ -5,10 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sgs_app/db/dbHelper.dart';
-import 'package:sgs_app/models/url.dart';
 import 'package:sgs_app/models/user.dart';
 import 'dart:async';
 import 'package:path/path.dart';
+import 'package:sgs_app/screens/friendshipScreen.dart';
+import 'package:sgs_app/screens/userSharingScreen.dart';
 
 class AccountScreen extends StatefulWidget{
   final String userNameFromUserScreen;
@@ -18,8 +19,7 @@ class AccountScreen extends StatefulWidget{
 
 }
 
-class AccountScreenState extends State<AccountScreen> {
-  bool urlStatus = false;
+class AccountScreenState extends State<AccountScreen> with TickerProviderStateMixin{
   DbHelper dbHelper = new DbHelper();
   File _image;
   @override
@@ -31,57 +31,80 @@ class AccountScreenState extends State<AccountScreen> {
         title: Text(widget.userNameFromUserScreen + " Profile"),
       ),
       backgroundColor: Colors.white,
-      body: FirebaseAnimatedList(
-        query: dbHelper.getUsers(),
-        itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
-          User user = User.fromDataSnapshot(snapshot);
-          if(user.getUserName == widget.userNameFromUserScreen){
-            return Card(
-                color: Colors.white,
-                elevation: 2,
-                child: Container(
-                  padding: EdgeInsets.all(4.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: 150.0,
-                        height: 150.0,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            image: DecorationImage(
-                                image: NetworkImage(user.getProfilePicture),
-                                fit: BoxFit.cover
-                            )
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.add_a_photo),
-                            onPressed: (){
-                              getImageFromGallery(context,user);
-                            },
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: FirebaseAnimatedList(
+                query: dbHelper.getUsers(),
+                itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
+                  User user = User.fromDataSnapshot(snapshot);
+                  if(user.getUserName == widget.userNameFromUserScreen){
+                    return Card(
+                        color: Colors.white,
+                        elevation: 2,
+                        child: Container(
+                          padding: EdgeInsets.all(4.0),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                width: 150.0,
+                                height: 150.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    image: DecorationImage(
+                                        image: NetworkImage(user.getProfilePicture),
+                                        fit: BoxFit.fill
+                                    )
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(Icons.add_a_photo),
+                                    onPressed: (){
+                                      getImageFromGallery(context,user);
+                                    },
+                                  ),
+                                ],
+                              ),
+
+                            ],
                           ),
-                        ],
-                      ),
+                        )
+                    );
+                  }
+                  else
+                    return Text("");
 
-                    ],
-                  ),
-                )
-            );
-          }
-          else
-            return Text("");
+                },
+              ),
+            ),
 
-        },
-      ),
+            Flexible(
+              child: _buildInfo(),
+              flex: 2,
+              fit: FlexFit.loose,
+            )
+          ],
+        ),
+      )
 
     );
   }
 
   void initState() {
     super.initState();
+    dbHelper = new DbHelper();
+    dbHelper.initializeUserDb();
+  }
+
+  @override
+  void setState(fn) {
+    super.setState(fn);
     dbHelper = new DbHelper();
     dbHelper.initializeUserDb();
   }
@@ -102,6 +125,38 @@ class AccountScreenState extends State<AccountScreen> {
 
     var picUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
     await dbHelper.updateUser(User.withId(user.id,user.getName, user.getLastName, user.getUserName, user.getPassword, user.getTitle, user.getEmail, picUrl));
+  }
+
+  _buildInfo() {
+    TabController tabController = TabController(length: 2, vsync: this);
+    return Container(
+      child: Column(
+        children: <Widget>[
+          TabBar(
+            controller: tabController,
+            tabs: <Widget>[
+              Tab(
+                child: Text("Shared", style: TextStyle(color: Colors.black),),
+              ),
+              Tab(
+                child: Text("Friend List", style: TextStyle(color: Colors.black),),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+            height: 400.0,
+            child: TabBarView(
+              controller: tabController,
+              children: <Widget>[
+                UserSharingScreen(),
+                FriendshipScreen()
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 
 

@@ -8,7 +8,7 @@ class Friendship {
   Friendship(this._userName, this._friendUsername);
 
   String get getId => _id;
-  String get userName => _userName;
+  String get getUserName => _userName;
   String get getFriendUsername => _friendUsername;
 
   set setId(String value) {
