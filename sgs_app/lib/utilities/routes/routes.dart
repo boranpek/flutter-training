@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sgs_app/screens/accountScreen.dart';
 import 'package:sgs_app/screens/loginScreen.dart';
 import 'package:sgs_app/screens/registerScreen.dart';
 import 'package:sgs_app/screens/sharingScreen.dart';
@@ -11,5 +12,6 @@ class Routes {
     Constants.ROUTE_LOGIN_SCREEN: (BuildContext context) => LoginScreen(),
     Constants.ROUTE_USER_SCREEN: (BuildContext context) => UserScreen(),
     //Constants.ROUTE_SHARING_SCREEN: (BuildContext context) => SharingScreen()
+    Constants.ROUTE_ACCOUNT_SCREEN: (BuildContext context) => AccountScreen()
   };
 }

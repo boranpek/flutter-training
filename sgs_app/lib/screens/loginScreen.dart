@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/mixins/validation_mixin.dart';
@@ -107,6 +109,14 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
       onPressed: (){
         if(formKey.currentState.validate()){
           formKey.currentState.save();
+          Fluttertoast.showToast(
+              msg: "Success!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              textColor: Colors.white
+          );
+          sleep(const Duration(seconds:2));
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (BuildContext context) => SharingScreen(userNameFromLoginScreen: txtUserName.text,)
           ));

@@ -4,9 +4,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/models/url.dart';
+import 'package:sgs_app/screens/userScreen.dart';
 import 'package:sgs_app/utilities/constants/constants.dart';
 import 'package:path/path.dart';
 
@@ -21,8 +23,18 @@ class SharingScreen extends StatefulWidget {
 class SharingScreenState extends State<SharingScreen> {
   File _image;
   DbHelper dbHelper;
-  Future getImage(BuildContext context) async {
+
+  Future getImageFromGallery(BuildContext context) async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+      uploadToFirebase(context);
+    });
+
+  }
+
+  Future getImageFromCamera(BuildContext context) async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
       uploadToFirebase(context);
@@ -47,7 +59,39 @@ class SharingScreenState extends State<SharingScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          getImage(context);
+          AlertDialog alertDialog = new AlertDialog(
+            title: Text("Share!", textAlign: TextAlign.center,),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+               IconButton(
+                 icon: Icon(Icons.camera_alt),
+                 onPressed: (){
+                   getImageFromCamera(context);
+                   Navigator.of(context).pop();
+                 },
+               ),
+               IconButton(
+                 icon: Icon(Icons.camera),
+                 onPressed: (){
+                   getImageFromGallery(context);
+                   Navigator.of(context).pop();
+                 },
+               ),
+               IconButton(
+                 icon: Icon(Icons.textsms),
+                 onPressed: (){
+                   return null;
+                 },
+               )
+              ],
+            ),
+          );
+          showDialog(
+              context: context,
+              builder: (_)=>alertDialog
+          );
+
         },
         tooltip: "Share" ,
         child: Icon(Icons.add),
@@ -67,7 +111,7 @@ class SharingScreenState extends State<SharingScreen> {
                     title: Text("Sign Out"),
                     onTap: (){
                         Navigator.of(context).pushReplacementNamed(Constants.ROUTE_LOGIN_SCREEN);
-                      
+
                     }
                   ),
                 ),
@@ -76,7 +120,9 @@ class SharingScreenState extends State<SharingScreen> {
                     leading: Icon(Icons.account_box),
                     title: Text("Users"),
                     onTap: (){
-                      Navigator.of(context).pushNamed(Constants.ROUTE_USER_SCREEN);
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (BuildContext context) => UserScreen(userNameFromLoginScreen: widget.userNameFromLoginScreen,)
+                      ));
                     },
                   ),
                 )
@@ -123,4 +169,5 @@ class SharingScreenState extends State<SharingScreen> {
     dbHelper = new DbHelper();
     dbHelper.initializeUrlDb();
   }
+
 }

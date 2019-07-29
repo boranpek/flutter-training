@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:sgs_app/models/friendship.dart';
 import 'package:sgs_app/models/url.dart';
 import 'package:sgs_app/models/user.dart';
 
@@ -57,4 +58,18 @@ class DbHelper {
   getUrl(){
     return _dbReference;
   }
+
+  initializeFriendshipDb() async {
+    _dbReference = _db.reference().child("Friendship");
+    return _dbReference;
+  }
+
+  addFriend(Friendship friend) async {
+    var result = await _dbReference.push().set(friend.toMap());
+    return result;
+  }
+
+  getFriend(){
+    return _dbReference;
+}
 }
