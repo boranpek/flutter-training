@@ -5,6 +5,7 @@ import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/models/friendship.dart';
 import 'package:sgs_app/models/user.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:sgs_app/screens/accountScreen.dart';
 import 'package:sgs_app/utilities/constants/constants.dart';
 
 class UserScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class UserScreenState extends State<UserScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black45,
-        title: Text("Sgs"),
+        title: Text("Users"),
       ),
       backgroundColor: Colors.white,
       body:FirebaseAnimatedList(
@@ -58,7 +59,9 @@ class UserScreenState extends State<UserScreen> {
                             leading: Icon(Icons.forward),
                             title: Text("Go to profile"),
                             onTap: (){
-                              Navigator.of(context).pushNamed(Constants.ROUTE_ACCOUNT_SCREEN);
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                  builder: (BuildContext context) => AccountScreen(userNameFromUserScreen: user.getUserName)
+                              ));
                             }
                         ),
                       ),

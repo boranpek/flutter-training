@@ -8,22 +8,18 @@ class User {
   String _userName;
   String _title;
   String _email;
-  List<User> _friendList;
-
-
-
-
-  User(String firstName, String lastName, String userName, String password, String title, String email){
+  String _profilePicture;
+  User(String firstName, String lastName, String userName, String password, String title, String email,String profilePicture){
     _firstName = firstName;
     _lastName = lastName;
     _userName = userName;
     _password = password;
     _title = title;
     _email = email;
-    _friendList = new List<User>();
+    _profilePicture = profilePicture;
   }
 
-  User.withId(String id, String firstName, String lastName, String userName, String password, String title, String email){
+  User.withId(String id, String firstName, String lastName, String userName, String password, String title, String email, String profilePicture){
     _id = id;
     _firstName = firstName;
     _lastName = lastName;
@@ -31,7 +27,7 @@ class User {
     _password = password;
     _title = title;
     _email = email;
-    _friendList = new List<User>();
+    _profilePicture = profilePicture;
   }
 
   String get id => _id;
@@ -39,11 +35,9 @@ class User {
   String get getLastName => _lastName;
   String get getUserName => _userName;
   String get getTitle => _title;
-  List<User> get getFriendList => _friendList;
-
-  set setFriendList(List<User> value) {
-    _friendList = value;
-  }
+  String get getProfilePicture => _profilePicture;
+  String get getEmail => _email;
+  String get getPassword => _password;
 
   set setLastName(String value) {
     if(value.length > 2)
@@ -69,14 +63,10 @@ class User {
       _title = value;
   }
 
-
-  void addToList(User user){
-    _friendList.add(user);
+  set setProfilePicture(String value) {
+    _profilePicture = value;
   }
 
-  void deleteFromList(User user) {
-    _friendList.remove(user);
-  }
 
   Map<String,dynamic> toMap() {
 
@@ -88,6 +78,7 @@ class User {
     map["password"] = _password;
     map["title"] = _title;
     map["email"] = _email;
+    map["profilePicture"] = _profilePicture;
 
     if(id != null)
       map["id"] = id;
@@ -103,6 +94,7 @@ class User {
     _password = input.value["password"];
     _title = input.value["title"];
     _email = input.value["email"];
+    _profilePicture = input.value["profilePicture"];
   }
 
 }

@@ -45,6 +45,10 @@ class DbHelper {
     return _dbReference;
   }
 
+  updateUser(User user) {
+    _dbReference.child(user.id).update(user.toMap());
+  }
+
   initializeUrlDb() async {
     _dbReference = _db.reference().child("Url");
     return _dbReference;

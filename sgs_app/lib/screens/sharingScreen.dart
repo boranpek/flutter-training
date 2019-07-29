@@ -4,7 +4,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/models/url.dart';
@@ -21,6 +20,7 @@ class SharingScreen extends StatefulWidget {
 }
 
 class SharingScreenState extends State<SharingScreen> {
+  TextEditingController txtMessage = new TextEditingController();
   File _image;
   DbHelper dbHelper;
 
@@ -50,7 +50,7 @@ class SharingScreenState extends State<SharingScreen> {
 
     var downUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
     var url = downUrl;
-    await dbHelper.addUrl(Url(url,widget.userNameFromLoginScreen));
+    await dbHelper.addUrl(Url(url,widget.userNameFromLoginScreen,txtMessage.text));
   }
 
 
@@ -60,7 +60,9 @@ class SharingScreenState extends State<SharingScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           AlertDialog alertDialog = new AlertDialog(
-            title: Text("Share!", textAlign: TextAlign.center,),
+            title: TextField(
+              controller: txtMessage,
+            ),
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -78,12 +80,6 @@ class SharingScreenState extends State<SharingScreen> {
                    Navigator.of(context).pop();
                  },
                ),
-               IconButton(
-                 icon: Icon(Icons.textsms),
-                 onPressed: (){
-                   return null;
-                 },
-               )
               ],
             ),
           );
@@ -150,7 +146,22 @@ class SharingScreenState extends State<SharingScreen> {
 
                   },
                 ),
-                Image.network(url.getUrl)
+                Image.network(url.getUrl),
+                Text(url.getTextMessage, style: TextStyle(fontSize: 15.0),),
+                Row(
+                  children: <Widget>[
+                    Stack(
+                      alignment: Alignment(0, 0),
+                      children: <Widget>[
+                        Icon(Icons.favorite, color: Colors.black, size: 30.0,),
+                        IconButton(
+                          icon: Icon(Icons.favorite, color: Colors.white,),
+                        )
+                      ],
+                    ),
+                  ],
+                )
+
               ],
             )
           );
