@@ -6,7 +6,8 @@ import 'package:sgs_app/models/friendship.dart';
 
 class FriendshipScreen extends StatefulWidget {
   final String userNameFromAccountScreen;
-  FriendshipScreen({this.userNameFromAccountScreen});
+  final String emailFromUserScreen;
+  FriendshipScreen({this.userNameFromAccountScreen,this.emailFromUserScreen});
   @override
   State<StatefulWidget> createState() => FriendshipScreenState();
 
@@ -22,7 +23,7 @@ class FriendshipScreenState extends State<FriendshipScreen> {
         children: <Widget>[
           Flexible(
             child: FirebaseAnimatedList(
-              query: dbHelper.getFriends(),
+              query: dbHelper.getFriends().orderByChild('userName').equalTo(widget.emailFromUserScreen),
               itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
                 Friendship friends = Friendship.fromDataSnapshot(snapshot);
                   return Card(
@@ -36,19 +37,18 @@ class FriendshipScreenState extends State<FriendshipScreen> {
                             children: <Widget>[
                               CircleAvatar(
                                 backgroundColor: Colors.black54,
-                                child: Text(friends.getFriendUsername[0]),
+                                child: Text(friends.getFriendUsername[0].toUpperCase()),
                               ),
                               Text("  " + friends.getFriendUsername, style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),),
                             ],
-                          )
-                          ,
+                          ),
 
                         ],
                       )
                   );
               },
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,6 +1,5 @@
-
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sgs_app/db/dbHelper.dart';
@@ -148,25 +147,43 @@ class RegisterScreenState extends State<RegisterScreen> with ValidationMixin{
       onPressed: (){
         if(formKey.currentState.validate()){
           formKey.currentState.save();
-          Fluttertoast.showToast(
-              msg: "Success!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.green,
-              textColor: Colors.white
-          );
-          sleep(const Duration(seconds:2));
-          addToDatabase();
+          sleep(const Duration(seconds:1));
+          registerUser();
         }
       },
     );
   }
 
-  void addToDatabase() async {
-    int result = await dbHelper.insert(User(txtName.text,txtLastName.text,txtUserName.text,txtPassword.text,txtTitle.text,txtEmail.text,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVqw3ySzl75nEIzsixaGEqigdnmtdKctZpVExRf9g2r9I8ufBE"));
+  void addToDatabase(String id) async {
+    int result = await dbHelper.insert(User.withId(id,txtName.text,txtLastName.text,txtUserName.text,txtPassword.text,txtTitle.text,txtEmail.text,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVqw3ySzl75nEIzsixaGEqigdnmtdKctZpVExRf9g2r9I8ufBE"));
     if(result != 0)
         Navigator.pop(context,true);
+  }
 
+  void registerUser() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: txtEmail.text, password: txtPassword.text);
+      FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
+      Fluttertoast.showToast(
+          msg: "Success!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.green,
+          textColor: Colors.white
+      );
+      addToDatabase(firebaseUser.uid);
+
+    }
+    catch(e) {
+      print(e);
+      Fluttertoast.showToast(
+          msg: txtEmail.text + " is already used!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white
+      );
+    }
 
   }
 

@@ -13,7 +13,9 @@ import 'package:sgs_app/screens/userSharingScreen.dart';
 
 class AccountScreen extends StatefulWidget{
   final String userNameFromUserScreen;
-  AccountScreen({this.userNameFromUserScreen});
+  final String emailFromUserScreen;
+  AccountScreen({this.userNameFromUserScreen,this.emailFromUserScreen});
+
   @override
   State<StatefulWidget> createState() => AccountScreenState ();
 
@@ -144,13 +146,13 @@ class AccountScreenState extends State<AccountScreen> with TickerProviderStateMi
             ],
           ),
           Container(
+            height: 300.0,
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-            height: 400.0,
             child: TabBarView(
               controller: tabController,
               children: <Widget>[
-                UserSharingScreen(),
-                FriendshipScreen()
+                UserSharingScreen(userNameFromAccountScreen: widget.userNameFromUserScreen,emailFromAccountScreen: widget.emailFromUserScreen,),
+                FriendshipScreen(userNameFromAccountScreen: widget.userNameFromUserScreen,emailFromUserScreen: widget.emailFromUserScreen,)
               ],
             ),
           )

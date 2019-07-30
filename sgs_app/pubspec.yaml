@@ -29,6 +29,7 @@ dependencies:
   fluttertoast: ^3.1.0
   image_picker: ^0.6.0+17
   firebase_storage: ^3.0.4
+  firebase_auth: ^0.14.0
 
 
 dev_dependencies:

@@ -6,11 +6,10 @@ import 'package:sgs_app/models/friendship.dart';
 import 'package:sgs_app/models/user.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:sgs_app/screens/accountScreen.dart';
-import 'package:sgs_app/utilities/constants/constants.dart';
 
 class UserScreen extends StatefulWidget {
-  final String userNameFromLoginScreen;
-  UserScreen({this.userNameFromLoginScreen});
+  final String emailFromLoginScreen;
+  UserScreen({this.emailFromLoginScreen});
   @override
   State<StatefulWidget> createState() => UserScreenState();
 
@@ -18,7 +17,6 @@ class UserScreen extends StatefulWidget {
 
 class UserScreenState extends State<UserScreen> {
   DbHelper dbHelper = new DbHelper();
-  User mainUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +29,6 @@ class UserScreenState extends State<UserScreen> {
         query: dbHelper.getUsers(),
         itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
           User user = User.fromDataSnapshot(snapshot);
-
           return Card(
             color: Colors.amberAccent,
             elevation: 2,
@@ -43,7 +40,7 @@ class UserScreenState extends State<UserScreen> {
                   children: <Widget>[
                     CircleAvatar(
                       backgroundColor: Colors.black54,
-                      child: Text(user.getName[0] + user.getLastName[0]),
+                      child: Text(user.getName[0].toUpperCase() + user.getLastName[0].toUpperCase()),
                     ),
                     Text("  " + user.getUserName, style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),),
                     Text(" (" + user.getTitle + ")", style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w100),)
@@ -60,7 +57,7 @@ class UserScreenState extends State<UserScreen> {
                             title: Text("Go to profile"),
                             onTap: (){
                               Navigator.pushReplacement(context, MaterialPageRoute(
-                                  builder: (BuildContext context) => AccountScreen(userNameFromUserScreen: user.getUserName)
+                                  builder: (BuildContext context) => AccountScreen(userNameFromUserScreen: user.getUserName, emailFromUserScreen: user.getEmail,)
                               ));
                             }
                         ),
@@ -70,7 +67,7 @@ class UserScreenState extends State<UserScreen> {
                           leading: Icon(Icons.person_add),
                           title: Text("Add to friend list"),
                           onTap: (){
-                            if(widget.userNameFromLoginScreen != user.getUserName){
+                            if(widget.emailFromLoginScreen != user.getEmail){
                               setState(() {
                                 dbHelper.initializeFriendshipDb();
                                 addFriend(user.getUserName);
@@ -94,8 +91,6 @@ class UserScreenState extends State<UserScreen> {
                               );
 
                             }
-
-
                           },
                         ),
                       )
@@ -117,7 +112,9 @@ class UserScreenState extends State<UserScreen> {
   }
 
   void addFriend (String friendUserName) async {
-    await dbHelper.addFriend(Friendship(widget.userNameFromLoginScreen,friendUserName));
+    await dbHelper.addFriend(Friendship(widget.emailFromLoginScreen,friendUserName));
   }
+
+
 
 }

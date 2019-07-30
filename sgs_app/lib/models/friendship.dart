@@ -25,7 +25,7 @@ class Friendship {
 
   Map<String,dynamic> toMap() {
     var map = Map<String,dynamic>();
-    map["username"] = _userName;
+    map["userName"] = _userName;
     map["friendUserName"] = _friendUsername;
 
     return map;

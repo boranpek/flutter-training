@@ -12,8 +12,8 @@ import 'package:sgs_app/utilities/constants/constants.dart';
 import 'package:path/path.dart';
 
 class SharingScreen extends StatefulWidget {
-  final String userNameFromLoginScreen;
-  SharingScreen({this.userNameFromLoginScreen});
+  final String emailFromLoginScreen;
+  SharingScreen({this.emailFromLoginScreen});
   @override
   State<StatefulWidget> createState() => SharingScreenState();
 
@@ -50,7 +50,7 @@ class SharingScreenState extends State<SharingScreen> {
 
     var downUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
     var url = downUrl;
-    await dbHelper.addUrl(Url(url,widget.userNameFromLoginScreen,txtMessage.text));
+    await dbHelper.addUrl(Url(url,widget.emailFromLoginScreen,txtMessage.text));
   }
 
 
@@ -117,7 +117,7 @@ class SharingScreenState extends State<SharingScreen> {
                     title: Text("Users"),
                     onTap: (){
                       Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (BuildContext context) => UserScreen(userNameFromLoginScreen: widget.userNameFromLoginScreen,)
+                          builder: (BuildContext context) => UserScreen(emailFromLoginScreen: widget.emailFromLoginScreen,)
                       ));
                     },
                   ),

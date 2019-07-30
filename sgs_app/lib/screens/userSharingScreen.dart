@@ -7,7 +7,8 @@ import 'package:sgs_app/models/url.dart';
 
 class UserSharingScreen extends StatefulWidget {
   final String userNameFromAccountScreen;
-  UserSharingScreen({this.userNameFromAccountScreen});
+  final String emailFromAccountScreen;
+  UserSharingScreen({this.userNameFromAccountScreen,this.emailFromAccountScreen});
   @override
   State<StatefulWidget> createState() => UserSharingScreenState();
 
@@ -24,7 +25,7 @@ class UserSharingScreenState extends State<UserSharingScreen> {
         children: <Widget>[
           Flexible(
             child: FirebaseAnimatedList(
-              query: dbHelper.getUrl(),
+              query: dbHelper.getUrl().orderByChild('userName').equalTo(widget.emailFromAccountScreen),
               itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
                 Url url = Url.fromDataSnapshot(snapshot);
                 return Card(

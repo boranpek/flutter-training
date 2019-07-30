@@ -1,12 +1,10 @@
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sgs_app/db/dbHelper.dart';
 import 'package:sgs_app/mixins/validation_mixin.dart';
-import 'package:sgs_app/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sgs_app/screens/sharingScreen.dart';
-
 import 'package:sgs_app/utilities/constants/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,8 +14,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin{
-  TextEditingController txtUserName = new TextEditingController();
+  TextEditingController txtEmail = new TextEditingController();
   DbHelper dbHelper = new DbHelper();
+  String _email;
+  String _password;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -48,13 +48,13 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
                   key: formKey,
                   child: Column(
                     children: <Widget>[
-                      userNameField(),
+                      emailField(),
                       passwordField(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           loginButton(),
-                          registerButton()
+                          registerButton(),
                         ],
                       )
                     ],
@@ -75,16 +75,16 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
   }
 
 
-  Widget userNameField() {
+  Widget emailField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: "UserName",
-          hintText: "username"
+          labelText: "Email",
+          hintText: "email@sgs.com"
       ),
-      validator: validateFirstName,
-      controller: txtUserName,
+      validator: validateEmail,
+      controller: txtEmail,
       onSaved: (String value){
-
+        _email = value;
       },
     );
   }
@@ -95,9 +95,10 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
           labelText: "Password",
           hintText: "password"
       ),
+      validator: validatePassword,
       obscureText: true,
       onSaved: (String value){
-
+        _password = value;
       },
     );
   }
@@ -107,20 +108,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
       child: Text("Sign in", style: TextStyle(fontSize: 15.0, color: Colors.white),),
       color: Colors.black45,
       onPressed: (){
-        if(formKey.currentState.validate()){
-          formKey.currentState.save();
-          Fluttertoast.showToast(
-              msg: "Success!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.green,
-              textColor: Colors.white
-          );
-          sleep(const Duration(seconds:2));
-          Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (BuildContext context) => SharingScreen(userNameFromLoginScreen: txtUserName.text,)
-          ));
-        }
+        loginUser();
       },
     );
   }
@@ -135,8 +123,39 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
     );
   }
 
-  void saveUser(User user) {
-    print(user.getName);
+
+  void loginUser() async {
+    if(formKey.currentState.validate()){
+      formKey.currentState.save();
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
+        print(firebaseUser.uid);
+        Fluttertoast.showToast(
+            msg: "Success!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.green,
+            textColor: Colors.white
+        );
+        sleep(const Duration(seconds:1));
+        Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (BuildContext context) => SharingScreen(emailFromLoginScreen: txtEmail.text,)
+        ));
+      }
+      catch (e) {
+        print(e);
+        Fluttertoast.showToast(
+            msg: "Wrong Email or Password!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.red,
+            textColor: Colors.white
+        );
+      }
+
+    }
+
   }
 
 
