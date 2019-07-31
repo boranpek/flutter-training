@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sgs_app/screens/loginScreen.dart';
-import 'package:sgs_app/screens/userScreen.dart';
 import 'package:sgs_app/utilities/routes/routes.dart';
 
 void main() => runApp(MyApp());

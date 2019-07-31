@@ -10,6 +10,7 @@ import 'package:sgs_app/models/url.dart';
 import 'package:sgs_app/screens/userScreen.dart';
 import 'package:sgs_app/utilities/constants/constants.dart';
 import 'package:path/path.dart';
+import 'package:sgs_app/widgets/likesWidget.dart';
 
 class SharingScreen extends StatefulWidget {
   final String emailFromLoginScreen;
@@ -127,46 +128,21 @@ class SharingScreenState extends State<SharingScreen> {
           )
         ],
       ),
-      body:FirebaseAnimatedList(
-        query: dbHelper.getUrl(),
-        itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
-          Url url = Url.fromDataSnapshot(snapshot);
-          return Card(
-            color: Colors.amberAccent,
-            elevation: 2,
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.black54,
-                    child: Icon(Icons.account_circle),
-                  ),
-                  title: Text(url.getUserName),
-                  onTap: (){
-
-                  },
-                ),
-                Image.network(url.getUrl),
-                Text(url.getTextMessage, style: TextStyle(fontSize: 15.0),),
-                Row(
-                  children: <Widget>[
-                    Stack(
-                      alignment: Alignment(0, 0),
-                      children: <Widget>[
-                        Icon(Icons.favorite, color: Colors.black, size: 30.0,),
-                        IconButton(
-                          icon: Icon(Icons.favorite, color: Colors.white,),
-                        )
-                      ],
-                    ),
-                  ],
-                )
-
-              ],
+      body:Container(
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: FirebaseAnimatedList(
+                query: dbHelper.getUrl(),
+                itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
+                  Url url = Url.fromDataSnapshot(snapshot);
+                  return LikesWidget(urlObjectFromSharingScreen: url, emailFromSharingScreen: widget.emailFromLoginScreen, urlFromSharingScreen: url.getUrl,);
+                },
+              ),
             )
-          );
-        },
-      ),
+          ],
+        ),
+      )
     );
   }
  @override
