@@ -25,7 +25,7 @@ class UserSharingScreenState extends State<UserSharingScreen> {
         children: <Widget>[
           Flexible(
             child: FirebaseAnimatedList(
-              query: dbHelper.getUrl().orderByChild('userName').equalTo(widget.emailFromAccountScreen),
+              query: dbHelper.getUrl().orderByChild('email').equalTo(widget.emailFromAccountScreen),
               itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation animation, int index){
                 Url url = Url.fromDataSnapshot(snapshot);
                 return Card(

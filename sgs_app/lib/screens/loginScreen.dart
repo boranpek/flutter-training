@@ -129,8 +129,6 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin{
       formKey.currentState.save();
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-        FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
-        print(firebaseUser.uid);
         Fluttertoast.showToast(
             msg: "Success!",
             toastLength: Toast.LENGTH_LONG,
